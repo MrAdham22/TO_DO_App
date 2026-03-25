@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.TODOApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:colorPrimary">@color/blue</item>
+        <item name="android:colorSecondary">@color/mint_green</item>
+    </style>
+
+
+    <style name="titleLarge">
+
+    </style>
+
+    <style name="titleMedium">
+        <item name="android:textSize">22sp</item>ma
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="titleSmall">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="bodyMedium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="bodyLarge">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="bodySmall">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+    <style name="ShapeAppearanceOverlayCircle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+</resources>
