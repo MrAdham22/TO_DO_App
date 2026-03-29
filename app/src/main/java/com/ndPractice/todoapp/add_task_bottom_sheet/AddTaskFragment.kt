@@ -18,6 +18,10 @@ class AddTaskFragment : BottomSheetDialogFragment() {
     lateinit var binding: FragmentAddTaskBinding
     val selectedDate = Calendar.getInstance()
 
+    companion object {
+        const val REQUEST_KEY_TASK_ADDED = "task_added"
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,11 +48,9 @@ class AddTaskFragment : BottomSheetDialogFragment() {
                 isCompleted = false
 
             )
-            val tasksBeforeAdding = MyDatabase.getDatabase().taskDao().getAllTasks()
             MyDatabase.getDatabase().taskDao().addtask(task)
-            val tasksAfterAdding = MyDatabase.getDatabase().taskDao().getAllTasks()
-            println("tasks before adding = $tasksBeforeAdding")
-            println("tasks after adding = $tasksAfterAdding")
+            parentFragmentManager.setFragmentResult(REQUEST_KEY_TASK_ADDED, Bundle())
+            dismiss()
         }
 
         binding.selectedDate.setOnClickListener {
@@ -87,7 +89,7 @@ class AddTaskFragment : BottomSheetDialogFragment() {
         }else{
             binding.descriptionInputLayout.error = null
         }
-        return true
+        return isvalid
         }
 
     }

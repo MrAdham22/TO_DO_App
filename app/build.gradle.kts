@@ -7,9 +7,7 @@ plugins {
 
 android {
     namespace = "com.ndPractice.todoapp"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.ndPractice.todoapp"
@@ -34,13 +32,16 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
     buildFeatures {
         compose = true
     }
     viewBinding.enable=true
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+    }
 }
 
 dependencies {
@@ -55,6 +56,7 @@ dependencies {
     implementation(libs.material)
     // Room
     implementation(libs.androidx.room.runtime)
+    implementation("com.kizitonwose.calendar:view:2.10.1")
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
     testImplementation(libs.junit)

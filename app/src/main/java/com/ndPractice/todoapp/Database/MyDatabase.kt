@@ -8,7 +8,7 @@ import com.ndPractice.todoapp.Database.daos.TaskDao
 import com.ndPractice.todoapp.Database.entities.Task
 
 
-@Database(entities = [Task::class], version = 1)
+@Database(entities = [Task::class], version = 1, exportSchema = false)
 abstract class MyDatabase : RoomDatabase() {
     companion object {
         private var myDatabase: MyDatabase? = null

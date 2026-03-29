@@ -6,19 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mint_green"
-    tools:context=".MainActivity">
+    tools:context="main.MainActivity">
 
-    <include
-        android:id="@+id/appBarContent"
+    <!-- Fragment must be declared FIRST so it sits BEHIND the bottom bar and FAB; otherwise
+         the list receives touches on top of the navigation (later children draw on top). -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        layout="@layout/app_bar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.25"
-        android:layout_gravity="top"
-        />
+        android:layout_height="match_parent" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
@@ -29,9 +24,7 @@
         app:fabAlignmentMode="center"
         app:fabCradleRoundedCornerRadius="8dp"
         app:fabCradleVerticalOffset="10dp"
-        app:fabAnchorMode="cradle"
-
-        >
+        app:fabAnchorMode="cradle">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
@@ -41,16 +34,8 @@
             app:itemIconTint="@color/item_bottom_nav_color"
             app:labelVisibilityMode="unlabeled"
             app:menu="@menu/bottom_nav_menue"
-            android:layout_gravity="bottom"
-            />
+            android:layout_gravity="bottom" />
     </com.google.android.material.bottomappbar.BottomAppBar>
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
