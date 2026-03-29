@@ -17,9 +17,28 @@ import com.ndPractice.todoapp.utils.format
 class AddTaskFragment : BottomSheetDialogFragment() {
     lateinit var binding: FragmentAddTaskBinding
     val selectedDate = Calendar.getInstance()
+    private var editingTaskId: Int? = null
+    private var editingTaskCompleted: Boolean = false
 
     companion object {
         const val REQUEST_KEY_TASK_ADDED = "task_added"
+        private const val ARG_TASK_ID = "arg_task_id"
+        private const val ARG_TASK_TITLE = "arg_task_title"
+        private const val ARG_TASK_DESCRIPTION = "arg_task_description"
+        private const val ARG_TASK_DATE = "arg_task_date"
+        private const val ARG_TASK_COMPLETED = "arg_task_completed"
+
+        fun newInstance(task: Task): AddTaskFragment {
+            return AddTaskFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ARG_TASK_ID, task.id)
+                    putString(ARG_TASK_TITLE, task.title)
+                    putString(ARG_TASK_DESCRIPTION, task.description)
+                    putLong(ARG_TASK_DATE, task.date)
+                    putBoolean(ARG_TASK_COMPLETED, task.isCompleted)
+                }
+            }
+        }
     }
 
 
@@ -34,6 +53,7 @@ class AddTaskFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initEditStateIfNeeded()
         binding.selectedDate.text = selectedDate.format()
         initlisteners()
     }
@@ -42,13 +62,17 @@ class AddTaskFragment : BottomSheetDialogFragment() {
         binding.addTaskButton.setOnClickListener {
             if (!validate()) return@setOnClickListener
             val task = Task(
+                id = editingTaskId ?: 0,
                 title = binding.titleInputLayout.editText!!.text.toString(),
                 description = binding.descriptionInputLayout.editText!!.text.toString(),
                 date = selectedDate.timeInMillis,
-                isCompleted = false
-
+                isCompleted = editingTaskCompleted
             )
-            MyDatabase.getDatabase().taskDao().addtask(task)
+            if (editingTaskId == null) {
+                MyDatabase.getDatabase().taskDao().addtask(task)
+            } else {
+                MyDatabase.getDatabase().taskDao().updateTask(task)
+            }
             parentFragmentManager.setFragmentResult(REQUEST_KEY_TASK_ADDED, Bundle())
             dismiss()
         }
@@ -91,6 +115,19 @@ class AddTaskFragment : BottomSheetDialogFragment() {
         }
         return isvalid
         }
+
+    private fun initEditStateIfNeeded() {
+        val args = arguments ?: return
+        if (!args.containsKey(ARG_TASK_ID)) return
+
+        editingTaskId = args.getInt(ARG_TASK_ID)
+        editingTaskCompleted = args.getBoolean(ARG_TASK_COMPLETED)
+        selectedDate.timeInMillis = args.getLong(ARG_TASK_DATE)
+        binding.titleInputLayout.editText?.setText(args.getString(ARG_TASK_TITLE).orEmpty())
+        binding.descriptionInputLayout.editText?.setText(args.getString(ARG_TASK_DESCRIPTION).orEmpty())
+        binding.addNewTaskText.text = "Edit Task"
+        binding.addTaskButton.text = "Update"
+    }
 
     }
 
