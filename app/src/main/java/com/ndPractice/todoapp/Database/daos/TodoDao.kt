@@ -24,6 +24,8 @@ interface TaskDao {
     @Query("SELECT * FROM Task WHERE date = :filterdate")
     fun getTasksByDate (filterdate: Long): List<Task>
 
-
+    /** Tasks whose stored millis fall on the same local calendar day as [startOfDayMillis] (inclusive) .. [endOfDayMillis] (exclusive). */
+    @Query("SELECT * FROM Task WHERE date >= :startOfDayMillis AND date < :endOfDayMillis ORDER BY date ASC")
+    fun getTasksForLocalDay(startOfDayMillis: Long, endOfDayMillis: Long): List<Task>
 
 }

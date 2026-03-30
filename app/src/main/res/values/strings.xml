@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">TO DO App</string>
     <string name="mark_task_complete">Mark task as complete</string>
+    <string name="no_tasks_yet">No Tasks added yet!!!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
