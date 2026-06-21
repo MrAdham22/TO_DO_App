@@ -66,6 +66,7 @@ class ListFragment : Fragment() {
         initcalendar()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun onDoneClicked(task: com.ndPractice.todoapp.Database.entities.Task) {
         MyDatabase.getDatabase().taskDao().updateTask(task.copy(isCompleted = !task.isCompleted))
         refreshTasks()
